@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/authContext";
 import { ButtonLink } from "./ui/ButtonLink";
+import { useState } from 'react';
 
 export function Navbar() {
   const { isAuthenticated, logout, user } = useAuth();
-  console.log(isAuthenticated, user)
+  const [selectedFilter, setSelectedFilter] = useState("");
 
   return (
     <nav className="flex justify-between items-center p-5 bg-gradient-to-r from-blue-400 to-blue-500 text-white">
@@ -12,13 +13,15 @@ export function Navbar() {
         <Link to={isAuthenticated ? "/tasks" : "/"}>Task Manager</Link>
       </h1>
       <input
-         type="text"
-         placeholder="Buscar..."
-         class="w-1/2 p-2 rounded-full border-none text-lg shadow-md" />
-             <select
-        class="p-2 rounded-full border-none text-black shadow-md bg-white"
+        type="text"
+        placeholder="Buscar..."
+        className="w-1/2 p-2 rounded-full border-none text-lg shadow-md" />
+      <select
+        value={selectedFilter}
+        onChange={(e) => setSelectedFilter(e.target.value)}
+        className="p-2 rounded-full border-none text-black shadow-md bg-white"
       >
-        <option value="" disabled selected>Filtrar</option>
+        <option value="" disabled>Filtrar</option>
         <option value="option1">Electricidad</option>
         <option value="option2">Carpintería</option>
         <option value="option3">Albañilería</option>
